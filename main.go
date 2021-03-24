@@ -222,13 +222,6 @@ func main() {
 	var data string
 	process := make(map[string]bool)
 	for {
-		if process["params"] && process["stdin"] {
-			rs := ExecPhp(env, data)
-			SendResponse(id, rs, conn)
-			id = 0
-			process["params"] = false
-			process["stdin"] = false
-		}
 		buff := make([]byte, HEAD_LEN)
 		if _, err := conn.Read(buff); err != nil {
 			_ = conn.Close()
@@ -261,6 +254,13 @@ func main() {
 			process["stdin"] = true
 		default:
 			log.Fatal("Unknown Request Type", head.Type)
+		}
+		if process["params"] && process["stdin"] {
+			rs := ExecPhp(env, data)
+			SendResponse(id, rs, conn)
+			id = 0
+			process["params"] = false
+			process["stdin"] = false
 		}
 	}
 }
