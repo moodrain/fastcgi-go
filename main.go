@@ -28,7 +28,7 @@ const FCGI_RESPONDER   = 1
 const FCGI_AUTHORIZER  = 2
 const FCGI_FILTER      = 3
 
-// 记录 包结构
+// 记录 头 结构
 type FcgiHeader struct {
 	Version byte
 	Type byte
